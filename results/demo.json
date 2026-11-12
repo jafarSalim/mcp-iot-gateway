@@ -1,0 +1,491 @@
+{
+ "tools": [
+  {
+   "name": "list_devices",
+   "description": "All devices on the MQTT network, with their sensors, actuators, current actuator state and whether they are online.",
+   "annotations": {
+    "read_only_hint": true
+   }
+  },
+  {
+   "name": "read_sensor",
+   "description": "Latest value of one sensor, and optionally min/mean/max over the last N samples.",
+   "annotations": {
+    "read_only_hint": true
+   }
+  },
+  {
+   "name": "set_actuator",
+   "description": "Send a command to a device actuator (for example fan=true or led=128) and wait for the device to confirm it. Values are checked against the range the device declares.",
+   "annotations": {
+    "read_only_hint": false,
+    "destructive_hint": false,
+    "idempotent_hint": true
+   }
+  }
+ ],
+ "log": [
+  {
+   "tool": "list_devices",
+   "arguments": {},
+   "is_error": false,
+   "ms": 2.5192769999193843,
+   "result": [
+    {
+     "id": "esp32-01",
+     "name": "Climate node 1",
+     "model": "ESP32-WROOM-32 (simulated)",
+     "location": "lab",
+     "online": true,
+     "last_seen_seconds_ago": 0,
+     "sensors": {
+      "humidity": {
+       "unit": "%RH"
+      },
+      "temperature": {
+       "unit": "\u00b0C"
+      }
+     },
+     "actuators": {
+      "fan": {
+       "type": "bool"
+      },
+      "led": {
+       "type": "int",
+       "min": 0,
+       "max": 255
+      }
+     },
+     "actuator_state": {
+      "fan": false
+     }
+    },
+    {
+     "id": "esp32-02",
+     "name": "Climate node 2",
+     "model": "ESP32-WROOM-32 (simulated)",
+     "location": "server room",
+     "online": true,
+     "last_seen_seconds_ago": 0,
+     "sensors": {
+      "humidity": {
+       "unit": "%RH"
+      },
+      "temperature": {
+       "unit": "\u00b0C"
+      }
+     },
+     "actuators": {
+      "fan": {
+       "type": "bool"
+      },
+      "led": {
+       "type": "int",
+       "min": 0,
+       "max": 255
+      }
+     },
+     "actuator_state": {
+      "fan": false
+     }
+    },
+    {
+     "id": "esp32-03",
+     "name": "Climate node 3",
+     "model": "ESP32-WROOM-32 (simulated)",
+     "location": "greenhouse",
+     "online": true,
+     "last_seen_seconds_ago": 0,
+     "sensors": {
+      "humidity": {
+       "unit": "%RH"
+      },
+      "temperature": {
+       "unit": "\u00b0C"
+      }
+     },
+     "actuators": {
+      "fan": {
+       "type": "bool"
+      },
+      "led": {
+       "type": "int",
+       "min": 0,
+       "max": 255
+      }
+     },
+     "actuator_state": {
+      "fan": false
+     }
+    }
+   ]
+  },
+  {
+   "tool": "set_actuator",
+   "arguments": {
+    "device_id": "esp32-01",
+    "actuator": "fan",
+    "value": true
+   },
+   "is_error": false,
+   "ms": 0.7248270001127821,
+   "result": {
+    "actuator": "fan",
+    "confirmed": true,
+    "device": "esp32-01",
+    "round_trip_ms": 0.27,
+    "value": true
+   }
+  },
+  {
+   "tool": "read_sensor",
+   "arguments": {
+    "device_id": "esp32-01",
+    "sensor": "temperature",
+    "last_n": 20
+   },
+   "is_error": false,
+   "ms": 1.1496980000629264,
+   "result": {
+    "age_seconds": 0.1,
+    "device": "esp32-01",
+    "sensor": "temperature",
+    "unit": "\u00b0C",
+    "value": 22.2,
+    "window": {
+     "max": 22.7,
+     "mean": 22.44,
+     "min": 22.19,
+     "samples": 20,
+     "span_seconds": 9,
+     "values": [
+      22.54,
+      22.49,
+      22.45,
+      22.68,
+      22.65,
+      22.68,
+      22.7,
+      22.57,
+      22.47,
+      22.31,
+      22.24,
+      22.19,
+      22.33,
+      22.4,
+      22.55,
+      22.4,
+      22.27,
+      22.34,
+      22.27,
+      22.2
+     ]
+    }
+   }
+  },
+  {
+   "tool": "set_actuator",
+   "arguments": {
+    "device_id": "esp32-01",
+    "actuator": "led",
+    "value": 300
+   },
+   "is_error": true,
+   "ms": 0.5607680000139226,
+   "result": "esp32-01.led must be between 0 and 255"
+  },
+  {
+   "tool": "read_sensor",
+   "arguments": {
+    "device_id": "esp32-07",
+    "sensor": "temperature"
+   },
+   "is_error": true,
+   "ms": 0.4354980001153308,
+   "result": "unknown device \"esp32-07\"; call list_devices to see what is connected"
+  }
+ ],
+ "series": [
+  [
+   2.0034501552581787,
+   22.08
+  ],
+  [
+   2.5050220489501953,
+   22.09
+  ],
+  [
+   3.0066206455230713,
+   22.29
+  ],
+  [
+   3.508016347885132,
+   22.45
+  ],
+  [
+   4.0096962451934814,
+   22.54
+  ],
+  [
+   4.511467218399048,
+   22.63
+  ],
+  [
+   5.013060569763184,
+   22.74
+  ],
+  [
+   5.514923572540283,
+   22.74
+  ],
+  [
+   6.016519069671631,
+   22.86
+  ],
+  [
+   6.51839017868042,
+   22.97
+  ],
+  [
+   7.020426511764526,
+   22.88
+  ],
+  [
+   7.522181749343872,
+   22.94
+  ],
+  [
+   8.024047613143921,
+   22.93
+  ],
+  [
+   8.525867938995361,
+   23.01
+  ],
+  [
+   9.027898073196411,
+   23.11
+  ],
+  [
+   9.530110120773315,
+   23.23
+  ],
+  [
+   10.03225302696228,
+   23.2
+  ],
+  [
+   10.53390121459961,
+   23.3
+  ],
+  [
+   11.035970211029053,
+   23.27
+  ],
+  [
+   11.537632465362549,
+   23.43
+  ],
+  [
+   12.039198398590088,
+   23.58
+  ],
+  [
+   12.541005611419678,
+   23.67
+  ],
+  [
+   13.04329514503479,
+   23.73
+  ],
+  [
+   13.546260356903076,
+   23.79
+  ],
+  [
+   14.04816746711731,
+   23.7
+  ],
+  [
+   14.549919128417969,
+   23.87
+  ],
+  [
+   15.052513360977173,
+   23.36
+  ],
+  [
+   15.55419659614563,
+   22.96
+  ],
+  [
+   16.05592393875122,
+   22.83
+  ],
+  [
+   16.557896852493286,
+   22.59
+  ],
+  [
+   17.059767723083496,
+   22.42
+  ],
+  [
+   17.56170344352722,
+   22.45
+  ],
+  [
+   18.063741445541382,
+   22.33
+  ],
+  [
+   18.565917491912842,
+   22.17
+  ],
+  [
+   19.06777024269104,
+   22.09
+  ],
+  [
+   19.569528579711914,
+   21.92
+  ],
+  [
+   20.071245670318604,
+   22.12
+  ],
+  [
+   20.57323169708252,
+   22.12
+  ],
+  [
+   21.07486581802368,
+   22.23
+  ],
+  [
+   21.57657504081726,
+   22.16
+  ],
+  [
+   22.078526973724365,
+   22.06
+  ],
+  [
+   22.580873489379883,
+   22.18
+  ],
+  [
+   23.082696199417114,
+   22.04
+  ],
+  [
+   23.58484673500061,
+   22.13
+  ],
+  [
+   24.08685564994812,
+   22.21
+  ],
+  [
+   24.588812589645386,
+   22.44
+  ],
+  [
+   25.091122150421143,
+   22.33
+  ],
+  [
+   25.593130111694336,
+   22.32
+  ],
+  [
+   26.095319032669067,
+   22.34
+  ],
+  [
+   26.59740161895752,
+   22.55
+  ],
+  [
+   27.10006308555603,
+   22.55
+  ],
+  [
+   27.602217197418213,
+   22.54
+  ],
+  [
+   28.10454487800598,
+   22.49
+  ],
+  [
+   28.606922149658203,
+   22.45
+  ],
+  [
+   29.109343767166138,
+   22.68
+  ],
+  [
+   29.611327648162842,
+   22.65
+  ],
+  [
+   30.11363649368286,
+   22.68
+  ],
+  [
+   30.615838050842285,
+   22.7
+  ],
+  [
+   31.11796760559082,
+   22.57
+  ],
+  [
+   31.61970591545105,
+   22.47
+  ],
+  [
+   32.121506452560425,
+   22.31
+  ],
+  [
+   32.62327575683594,
+   22.24
+  ],
+  [
+   33.125020027160645,
+   22.19
+  ],
+  [
+   33.626874923706055,
+   22.33
+  ],
+  [
+   34.12920808792114,
+   22.4
+  ],
+  [
+   34.630876779556274,
+   22.55
+  ],
+  [
+   35.132564544677734,
+   22.4
+  ],
+  [
+   35.63430047035217,
+   22.27
+  ],
+  [
+   36.13606286048889,
+   22.34
+  ],
+  [
+   36.638150215148926,
+   22.27
+  ]
+ ],
+ "fan_at": 14.55068063735962
+}
